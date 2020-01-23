@@ -31,6 +31,7 @@
             </dl>
             <input type="submit" value="投稿">
         </form>
+        <a href="blog_list">リストへ戻る</a>
     </div>
 </body>
 

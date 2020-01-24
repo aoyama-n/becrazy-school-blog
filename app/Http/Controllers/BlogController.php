@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Taxonomy;
 
 class BlogController extends Controller {
 
@@ -23,7 +24,7 @@ class BlogController extends Controller {
     public function blog_add(Request $request) {
         //バリデーション
         $validatedData = $request->validate([
-            'title' => 'request|string|max:200',
+            'title' => 'required|string|max:200',
             'content' => 'required|string'
         ]);
         // レコード登録処理
@@ -32,7 +33,6 @@ class BlogController extends Controller {
         $post->content = $request->content;
         $post->save();
         return view('result');
-        
     }
 
     //記事一覧
@@ -43,7 +43,7 @@ class BlogController extends Controller {
 
     //記事編集(フォーム表示)
     public function blog_editForm($id) {
-        $posts = Post::find($id);
+        $post = Post::find($id);
         if(is_null($post)) {
             return redirect('blog_add');
         }
@@ -52,6 +52,7 @@ class BlogController extends Controller {
 
     //記事編集(POST登録処理)
     public function blog_edit(Request $request){
+        //バリデーション
         $request->validate([
             'id' => 'required',
             'title' => 'required|string',
@@ -67,23 +68,72 @@ class BlogController extends Controller {
 
     //記事論理削除
     public function blog_delete(Request $request){
+        //バリデーション
         $validatedData = $request->validate([
             'ids' => 'array|required'
         ]);
 
-        Post::destroy($request->ids);
+        $post = TodoList::find($request->ids);
+        foreach ($posts as $post) {
+            $post->deleted_at = now();
+            $post->save();
+        }
         return redirect('blog_list');
     }
 
     //カテゴリー一覧
+    public function category_list(){
+        $taxonomys = Taxonomy::all();
+        return view('category_list', ['taxonomys' => $taxonomys]);
+    }
 
     //カテゴリー追加(フォーム表示)
+    public function category_addForm(){
+        return view('category_addForm');
+    }
 
     //カテゴリー追加(POST登録処理)
+    public function category_add(Request $request) {
+        //バリデーション
+        $validatedData = $request->validate([
+            'type' => 'required',
+            'name' => 'required',
+            'slug' => 'required',
+            'description' => 'nullable'
+        ]);
+        // レコード登録処理
+        $taxonomy = new Taxonomy();
+        $taxonomy->type = $request->type;
+        $taxonomy->name = $request->name;
+        $taxonomy->slug = $request->slug;
+        $taxonomy->description = $request->description;
+        $taxonomy->save();
+        return redirect('category_list');
+    }
 
     //カテゴリー編集
+    public function category_editForm($id) {
+        $taxonomy = Taxonomy::find($id);
+        if(is_null($taxonomy)) {
+            return redirect('category_add');
+        }
+        return view('category_editForm', ['taxonomy' => $taxonomy]);
+    }
 
     //カテゴリー物理削除
+    public function category_delete(Request $request) {
+        // バリデーション
+        $validatedData = $request->validate([
+            'ids' => 'array|required'
+        ]);
+
+        $taxonomys = TodoList::find($request->ids);
+        foreach ($taxonomys as $taxonomy) {
+            $taxonomy->forceDelete();
+        }
+
+        return redirect('category_list');
+    }
 
      
 }

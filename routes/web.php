@@ -52,10 +52,14 @@ Route::post('category_edit','BlogController@category_edit');
 
 //*ブログ閲覧機能
 //トップページ
+Route::get('top', 'ViewController@top');
 
 //記事ページ
+Route::get('article_list', 'ViewController@article_list');
 
 //カテゴリー選択時の記事一覧
+Route::get('article_category_list','ViewController@article_category_list');
+
 
 
 //*認証機能
@@ -66,4 +70,7 @@ Route::post('category_edit','BlogController@category_edit');
 //ログインユーザーのパスワード変更
 
 //ログイン・ログアウト
+Route::get('login', 'Auth\BlogLoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\BlogLoginController@login');
+Route::post('logout', 'Auth\BlogLoginController@logout')->name('logout');
 

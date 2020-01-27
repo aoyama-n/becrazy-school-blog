@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Taxonomy;
+use App\Models\TaxonomyRelationship;
 
 class BlogController extends Controller {
 
@@ -83,8 +84,8 @@ class BlogController extends Controller {
 
     //カテゴリー一覧
     public function category_list(){
-        $taxonomys = Taxonomy::all();
-        return view('category_list', ['taxonomys' => $taxonomys]);
+        $taxonomyies = Taxonomy::all();
+        return view('category_list', ['taxonomys' => $taxonomies]);
     }
 
     //カテゴリー追加(フォーム表示)
@@ -102,7 +103,7 @@ class BlogController extends Controller {
             'description' => 'nullable'
         ]);
         // レコード登録処理
-        $taxonomy = new Taxonomy();
+        $taxonomies = new Taxonomy();
         $taxonomy->type = $request->type;
         $taxonomy->name = $request->name;
         $taxonomy->slug = $request->slug;
@@ -127,8 +128,8 @@ class BlogController extends Controller {
             'ids' => 'array|required'
         ]);
 
-        $taxonomys = TodoList::find($request->ids);
-        foreach ($taxonomys as $taxonomy) {
+        $taxonomies = Taxonomy::find($request->ids);
+        foreach ($taxonomies as $taxonomy) {
             $taxonomy->forceDelete();
         }
 

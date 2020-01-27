@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($taxonomys as $taxonomy)
+                    @foreach ($taxonomies as $taxonomy)
                         <tr>
                             <td><input type="checkbox" name="ids[]" value="{{ $taxonomy->id }}"></td>
                             <td>{{ $taxonomy->id }}</td>

@@ -84,8 +84,8 @@ class BlogController extends Controller {
 
     //カテゴリー一覧
     public function category_list(){
-        $taxonomyies = Taxonomy::all();
-        return view('category_list', ['taxonomys' => $taxonomies]);
+        $taxonomies = Taxonomy::all();
+        return view('category_list', ['taxonomies' => $taxonomies]);
     }
 
     //カテゴリー追加(フォーム表示)

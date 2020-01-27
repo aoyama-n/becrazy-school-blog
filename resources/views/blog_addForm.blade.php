@@ -21,6 +21,7 @@
         @endif
         <form method="POST">
             @csrf
+            <input type="hidden" name="user_id" value="{{$user_id}}">
             <dl>
                 <dt>タイトル</dt>
                 <dd><input type="text" name="title" required value="{{ old('title') }}"></dd>
@@ -28,6 +29,10 @@
             <dl>
                 <dt>本文</dt>
                 <dd><textarea name="content" required>{{ old('content') }}</textarea></dd>
+            </dl>
+            <dl>
+                <dt>スラッグ</dt>
+                <dd><input type="text" name="slug" required value="{{ old('slug') }}"></dd>
             </dl>
             <input type="submit" value="投稿">
         </form>

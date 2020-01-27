@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Taxonomy;
 use App\Models\TaxonomyRelationship;
+use Auth;
 
 class BlogController extends Controller {
 
@@ -18,7 +19,8 @@ class BlogController extends Controller {
 
     //記事追加(フォーム表示)
     public function blog_addForm(){
-        return view('blog_addForm');
+        $user_id = Auth::id();
+        return view('blog_addForm', ['user_id' => $user_id]);
     }
 
     //記事追加(POST登録処理)
@@ -32,6 +34,7 @@ class BlogController extends Controller {
         $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
+        $post->slug = $request->content;
         $post->save();
         return view('result');
     }

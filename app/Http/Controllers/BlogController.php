@@ -77,7 +77,7 @@ class BlogController extends Controller {
             'ids' => 'array|required'
         ]);
 
-        $post = TodoList::find($request->ids);
+        $post = Post::find($request->ids);
         foreach ($posts as $post) {
             $post->deleted_at = now();
             $post->save();

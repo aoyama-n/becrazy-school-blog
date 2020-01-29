@@ -64,8 +64,12 @@ Route::get('article_category_list','ViewController@article_category_list');
 
 //*認証機能
 //初期ユーザー登録
+Route::get('firstuser_register', 'Auth\FirstUserRegisterController@showRegistrationForm')->name('register');
+Route::post('firstuser_register', 'Auth\RegisterController@register');
 
 //管理ユーザー登録（初期ユーザー以外の登録）
+Route::get('register', 'Auth\BlogRegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
 
 //ログインユーザーのパスワード変更
 

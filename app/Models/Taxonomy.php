@@ -9,6 +9,13 @@ class Taxonomy extends Model
 {
     //テーブル名の指定
     protected $table = 'taxonomy';
+
     //論理削除
     use SoftDeletes;
+
+    //リレーション
+    public function post(){
+        return $this->belongsToMany('App\Model\Post','taxonomy_relationships');
+    }
+
 }

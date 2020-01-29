@@ -9,4 +9,9 @@ class Post extends Model
 {
     //論理削除
     use SoftDeletes;
+
+    //リレーション
+    public function taxonomy(){
+        return $this->belongsToMany('App\Model\Taxonomy','taxonomy_relationships');
+    }
 }

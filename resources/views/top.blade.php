@@ -9,11 +9,28 @@
 </head>
 
 <body>
-	<h1>トップページ</h1>
-	<a href ="blog_list">記事一覧</a>
-	<br>
-	<a href ="article_category_list">カテゴリー一覧へ</a>
-	<br>
+	<div class="flex-center position-ref full-height">
+		<h1>トップページ</h1>
+
+	    @if (Route::has('login'))
+	        <div class="top-right links">
+			    @auth
+			         <a href="{{ url('/home') }}">トップページ</a>
+			    @else
+			         <a href="{{ route('login') }}">ログイン</a>
+
+			         @if (Route::has('register'))
+			             <a href="{{ route('register') }}">ユーザー登録</a>
+			         @endif
+			    @endauth
+			</div>
+		@endif
+
+		<hr>
+	    <a href ="blog_list">記事一覧へ</a>
+	    <br>
+        <a href ="article_category_list">カテゴリー一覧へ</a>
+    </div>
 </body>
 
 </html>

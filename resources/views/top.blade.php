@@ -15,10 +15,8 @@
 	    @if (Route::has('login'))
 	        <div class="top-right links">
 			    @auth
-			         <a href="{{ url('/home') }}">トップページ</a>
+			        <a href="{{ route('login') }}">ログイン</a>
 			    @else
-			         <a href="{{ route('login') }}">ログイン</a>
-
 			         @if (Route::has('register'))
 			             <a href="{{ route('register') }}">ユーザー登録</a>
 			         @endif
@@ -30,6 +28,13 @@
 	    <a href ="blog_list">記事一覧へ</a>
 	    <br>
         <a href ="article_category_list">カテゴリー一覧へ</a>
+        <hr>
+
+         <form id="logout-form" action="{{ route('logout') }}" method="POST">
+          @csrf
+         <input type="submit" value="ログアウト">
+         </form>
+
     </div>
 </body>
 

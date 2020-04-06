@@ -11,3 +11,10 @@
 <body>
     <div class="flex-center position-ref">
         <h1>ブログカテゴリー一覧</h1>
+
+        <form method="POST" action="article_category">
+            
+        </form>
+    </div>
+</body>
+</html>

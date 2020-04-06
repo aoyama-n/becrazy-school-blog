@@ -14,7 +14,7 @@ class Taxonomy extends Model
     use SoftDeletes;
 
     //リレーション
-    public function post(){
+    public function posts(){
         return $this->belongsToMany('App\Model\Post','taxonomy_relationships');
     }
 
